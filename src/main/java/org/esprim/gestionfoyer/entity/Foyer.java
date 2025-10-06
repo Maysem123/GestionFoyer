@@ -1,20 +1,31 @@
 package org.esprim.gestionfoyer.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import java.util.List;
 
 @Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Foyer {
-    private int id;@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long idFoyer;
-
-    private Long capaciteFoyer;
 
     private String nomFoyer;
 
+    private Long capaciteFoyer;
 
+    @OneToOne
+    @JoinColumn(name = "id_universite")
+    private Universite universite;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "foyer")
+    private List<Bloc> blocs;
 }
